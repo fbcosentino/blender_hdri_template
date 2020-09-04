@@ -6,7 +6,7 @@ The following setup must be kept unchanged when using this file for your own HDR
 
 - `Render Properties -> Render Engine` must be set to `Cycles`
 - `Output properties -> Dimensions -> Resolution` must have a `2:1` proportion (width always exactly double the height)
-- `Output properties -> Output -> File Format` must be either `Radiance HDR` for HDRI maps, or `OpenEXR` for spherical panorama scenes (those 360&deg; pictures you can move around with your mouse, e.g. https://www.360cities.net/ )
+- `Output properties -> Output -> File Format` must be either `Radiance HDR` for HDRI maps, or `OpenEXR` for spherical panorama scenes (those 360&deg; pictures you can move around with your mouse, e.g. https://www.360cities.net/ ) - except facebook (check below for specific details)
 - `Camera -> Lens -> Type` must be set to `Panoramic`
 - `Camera -> Lens -> Panorama Type` must be set to `Equirectangular`
 - `Camera -> Location` set to `(0, 0, 0)` and `Camera -> Rotation` set to `(90, 0, -90)` for orientation consistency with the common practice on HDRI maps
@@ -36,3 +36,19 @@ To generate the HDRI map, hit `F12`, and after rendering select `Image -> Save A
 The output result of this scene is provided as `output_example.hdr`
 
 ![](./doc/img_04.png)
+
+
+### Facebook spherical images
+
+Interactive spheric panoramas in facebook will only work with *JPG* files with EXIF metadata. In order to achieve this:
+
+- `Output properties -> Output -> File Format` must be `JPG`
+- Render the image normally and save as `.jpg`
+- After rendering, use `exiftool` (link below) to inject the correct metadata in the saved file, using the following command line: `exiftool -ProjectionType="equirectangular" <filename>.jpg`
+- Upload the image to facebook using the web version (not the app)
+
+![](./doc/img_05.png)
+
+
+`exiftool` is found at https://exiftool.org/
+
